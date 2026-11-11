@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Avoider</title>
+    <!-- CheerpJ runs the original Java game (avoider.jar) in the browser -->
+    <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
+    <style>
+      body {
+        margin: 0;
+        background: #f2f2f2;
+        color: #111;
+        font-family: system-ui, sans-serif;
+        text-align: center;
+      }
+      header { padding: 16px; }
+      h1 { margin: 0 0 4px; font-size: 1.6rem; }
+      p { margin: 4px 0; }
+      #game {
+        width: 800px;
+        height: 800px;
+        margin: 8px auto 24px;
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+      }
+      #status { color: #666; font-size: 0.9rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Avoider</h1>
+      <p>Move with the arrow keys and avoid the red enemies.</p>
+      <p>Click on the game once so it receives your key presses. Reload the page to play again.</p>
+      <p id="status">Loading Java… (the first start can take a few seconds)</p>
+    </header>
+    <div id="game"></div>
+    <script type="module">
+      // CheerpJ maps the root of this web server to /app/.
+      // On GitHub Pages the site lives under /<repo>/, so build the path from the page URL.
+      const base = location.pathname.replace(/[^/]*$/, "");
+      await cheerpjInit();
+      cheerpjCreateDisplay(800, 800, document.getElementById("game"));
+      document.getElementById("status").textContent = "";
+      await cheerpjRunJar("/app" + base + "avoider.jar");
+    </script>
+  </body>
+</html>
